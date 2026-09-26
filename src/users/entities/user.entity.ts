@@ -26,10 +26,10 @@ export class User {
   @Column({ type: 'int', name: 'id_organization', nullable: true })
   id_organization: number | null;
 
-  @Column({ type: 'varchar', length: 255, name: 'password' })
+  @Column({ type: 'varchar', length: 255,})
   password: string;
 
-  @Column({ type: 'varchar', length: 100, name: 'first_name' })
+  @Column({ type: 'varchar', length: 100,})
   userName: string;
 
   @Column({
@@ -39,10 +39,10 @@ export class User {
   })
   role: UserRole;
 
-  @Column({ type: 'boolean', default: false, name: 'owner' })
+  @Column({ type: 'boolean', default: false})
   owner: boolean;
 
-  @Column({ type: 'boolean', default: true, name: 'active' })
+  @Column({ type: 'boolean', default: true})
   active: boolean;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })

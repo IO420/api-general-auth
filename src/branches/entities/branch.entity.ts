@@ -16,19 +16,16 @@ export class Branch {
   @PrimaryGeneratedColumn()
   id_branch: number;
 
-  @Column({ type: 'int', name: 'id_organization' })
+  @Column({ type: 'int'})
   id_organization: number;
 
   @Column({ type: 'varchar', length: 255 })
-  name: string;
-
-  @Column({ type: 'varchar', length: 100, nullable: true })
-  code: string;
+  branchName: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   address: string;
 
-  @Column({ type: 'boolean', default: true, name: 'active' })
+  @Column({ type: 'boolean', default: true})
   active: boolean;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })

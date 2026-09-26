@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { BranchesModule } from './branches/branches.module';
 import { OrganizationsModule } from './organizations/organizations.module';
@@ -15,7 +15,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
+      useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
         console.log('[AppModule] Configurando conexión a base de datos');
         console.log(
           `[AppModule] Timezone: ${configService.get('DB_TIMEZONE') || '+00:00'}`,
