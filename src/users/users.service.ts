@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as argon2 from 'argon2';
+import * as bcrypt from 'bcryptjs';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto, LoginDto } from './dto/create-user.dto';
@@ -17,15 +17,12 @@ export class UsersService {
   ) {}
 
   async hashPassword(password: string): Promise<string> {
-    return await argon2.hash(password, {
-      type: argon2.argon2id,
-      memoryCost: 2 ** 16,
-      timeCost: 3,
-    });
+    const saltRounds = 10;
+    return await bcrypt.hash(password, saltRounds);
   }
 
   async verifyPassword(password: string, hash: string): Promise<boolean> {
-    return await argon2.verify(hash, password);
+    return await bcrypt.compare(password, hash);
   }
 
   async findOneByName(userName: string): Promise<User | null> {
@@ -45,7 +42,7 @@ export class UsersService {
       ...user,
       password: hashedPassword,
     });
-    
+
     return await this.userRepository.save(created);
   }
 

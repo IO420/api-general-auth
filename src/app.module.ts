@@ -6,6 +6,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { BranchesModule } from './branches/branches.module';
 import { OrganizationsModule } from './organizations/organizations.module';
+import { OperationsModule } from './operations/operations.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
     UsersModule,
     BranchesModule,
     OrganizationsModule,
+    OperationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

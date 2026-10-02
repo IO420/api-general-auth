@@ -1,3 +1,6 @@
+allowBuilds:
+  '@swc/core': false
+  argon2: false
 overrides:
   file-type@>=13.0.0 <21.3.1: '>=21.3.1'
   file-type@>=20.0.0 <=21.3.1: '>=21.3.2'
