@@ -8,12 +8,14 @@ import * as bcrypt from 'bcryptjs';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto, LoginDto } from './dto/create-user.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async hashPassword(password: string): Promise<string> {
@@ -62,6 +64,16 @@ export class UsersService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    return user;
+    const payload = {
+      sub: user.id_user,
+      userName: user.userName,
+    };
+    const token = await this.jwtService.signAsync(payload);
+
+    return {
+      user,
+      token,
+    };
   }
 }
+//IO

@@ -9,12 +9,13 @@ export class UsersController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    const user = await this.usersService.Login(loginDto);
+    const {user, token} = await this.usersService.Login(loginDto);
 
     const { password, ...userWithoutPassword } = user;
 
     return {
       message: 'Login successful',
+      token,
       user: userWithoutPassword,
     };
   }

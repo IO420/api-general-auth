@@ -32,7 +32,7 @@ import { OperationsModule } from './operations/operations.module';
           username: configService.get<string>('api_db_username'),
           password: configService.get<string>('api_db_password'),
           database: configService.get<string>('api_db_database'),
-          synchronize: true,
+          synchronize: false,
           dropSchema: false,
           autoLoadEntities: true,
           timezone: '+00:00',
@@ -48,3 +48,4 @@ import { OperationsModule } from './operations/operations.module';
   providers: [AppService],
 })
 export class AppModule {}
+//IO
