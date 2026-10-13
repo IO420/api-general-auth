@@ -28,7 +28,10 @@ export class UsersService {
   }
 
   async findOneByName(userName: string): Promise<User | null> {
-    return await this.userRepository.findOne({ where: { userName } });
+    return await this.userRepository.findOne({
+      where: { userName },
+      relations: { branches: true },
+    });
   }
 
   async createUser(user: CreateUserDto) {
@@ -64,9 +67,12 @@ export class UsersService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    const branchIds = user.branches?.map((branch) => branch.id_branch) || [];
+
     const payload = {
       sub: user.id_user,
       userName: user.userName,
+      branch: branchIds,
     };
     const token = await this.jwtService.signAsync(payload);
 
